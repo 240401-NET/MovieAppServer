@@ -12,8 +12,8 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20240516204314_CreatedUserMovieJoinTable")]
-    partial class CreatedUserMovieJoinTable
+    [Migration("20240516223657_CorrectedUserMovieJoinTable")]
+    partial class CorrectedUserMovieJoinTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

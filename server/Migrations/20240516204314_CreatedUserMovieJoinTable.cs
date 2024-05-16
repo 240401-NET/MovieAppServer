@@ -189,11 +189,11 @@ namespace server.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MovideId = table.Column<int>(type: "int", nullable: false)
+                    MovieId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserMovie", x => new { x.UserId, x.MovideId });
+                    table.PrimaryKey("PK_UserMovie", x => new { x.UserId, x.MovieId });
                     table.ForeignKey(
                         name: "FK_UserMovie_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -202,7 +202,7 @@ namespace server.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserMovie_Movie_MovideId",
-                        column: x => x.MovideId,
+                        column: x => x.MovieId,
                         principalTable: "Movie",
                         principalColumn: "MovieId",
                         onDelete: ReferentialAction.Cascade);
@@ -255,7 +255,7 @@ namespace server.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_UserMovie_MovideId",
                 table: "UserMovie",
-                column: "MovideId");
+                column: "MovieId");
         }
 
         /// <inheritdoc />

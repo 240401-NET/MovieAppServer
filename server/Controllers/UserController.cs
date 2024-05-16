@@ -92,6 +92,7 @@ public class UserController : ControllerBase
     }
   }
 
+/*                    UserMovie endpoints                    */
   [HttpPost("favorite")]
   public async Task<IActionResult> AddMovieToUser([FromBody] FavoritedMovieDto dto)
   {
