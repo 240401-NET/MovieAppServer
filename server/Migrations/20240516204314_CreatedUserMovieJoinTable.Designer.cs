@@ -12,8 +12,8 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20240516184756_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240516204314_CreatedUserMovieJoinTable")]
+    partial class CreatedUserMovieJoinTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -234,9 +234,6 @@ namespace server.Migrations
                     b.Property<int?>("MovieId")
                         .HasColumnType("int");
 
-                    b.Property<string>("MovieIds")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -277,6 +274,21 @@ namespace server.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("server.Models.UserMovie", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("MovideId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "MovideId");
+
+                    b.HasIndex("MovideId");
+
+                    b.ToTable("UserMovie");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -337,6 +349,35 @@ namespace server.Migrations
                         .HasForeignKey("MovieId");
 
                     b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("server.Models.UserMovie", b =>
+                {
+                    b.HasOne("server.Models.Movie", "Movie")
+                        .WithMany("UserMovies")
+                        .HasForeignKey("MovideId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("server.Models.User", "User")
+                        .WithMany("UserMovies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("server.Models.Movie", b =>
+                {
+                    b.Navigation("UserMovies");
+                });
+
+            modelBuilder.Entity("server.Models.User", b =>
+                {
+                    b.Navigation("UserMovies");
                 });
 #pragma warning restore 612, 618
         }

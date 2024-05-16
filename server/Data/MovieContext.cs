@@ -17,4 +17,22 @@ public class MovieContext : IdentityDbContext<User>
     _configuration = configuration; //set a connection string
   }
 
+  protected override void OnModelCreating(ModelBuilder modelBuilder)
+  {
+    base.OnModelCreating(modelBuilder);
+
+    modelBuilder.Entity<UserMovie>()
+    .HasKey(um => new { um.UserId, um.MovideId });
+
+    modelBuilder.Entity<UserMovie>()
+    .HasOne(um => um.User)
+    .WithMany(u => u.UserMovies)
+    .HasForeignKey(um => um.UserId);
+
+    modelBuilder.Entity<UserMovie>()
+    .HasOne(um => um.Movie)
+    .WithMany(m => m.UserMovies)
+    .HasForeignKey(um => um.MovideId);
+  }
+
 }
