@@ -15,6 +15,7 @@ public class UserService : IUserService
     _movieRepository = movieRepository;
   }
 
+
     public async Task AddMovieToUser(FavoritedMovieDto dto)
     {
         //get user from username & movie from title -> map to usermovie
@@ -37,8 +38,29 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
-    public Task RemoveMovieFromUser(FavoritedMovieDto dto)
+    public async Task<User> GetUserById(int id)
     {
-        throw new NotImplementedException();
+        User user =  await _userRepository.GetUserById(id);
+      if(user == null){
+        throw new Exception("User with this id not found");
+      }
+      else{
+          return user;
+      }
     }
-}
+
+        public async Task<User> GetUserByName(string name)
+    {
+      User user = await _userRepository.GetUserByUsernameAsync(name);
+      if(user == null){
+        throw new Exception("User with this name not found");
+      }
+      else{
+              return user;
+      }
+    }
+
+    }
+
+
+
