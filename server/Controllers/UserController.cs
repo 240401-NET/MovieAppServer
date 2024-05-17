@@ -26,7 +26,7 @@ public class UserController : ControllerBase
 
   /*                    Auth endpoints                    */
   [HttpPost("login")]
-  public async Task<IActionResult> Login(LoginDto loginDto)
+  public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
   {
     if (!ModelState.IsValid)
     {
