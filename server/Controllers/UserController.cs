@@ -26,7 +26,7 @@ public class UserController : ControllerBase
 
   /*                    Auth endpoints                    */
   [HttpPost("login")]
-  public async Task<IActionResult> Login(LoginDto loginDto)
+  public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
   {
     if (!ModelState.IsValid)
     {
@@ -92,6 +92,7 @@ public class UserController : ControllerBase
     }
   }
 
+/*                    UserMovie endpoints                    */
   [HttpPost("favorite")]
   public async Task<IActionResult> AddMovieToUser([FromBody] FavoritedMovieDto dto)
   {
