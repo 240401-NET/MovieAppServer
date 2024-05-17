@@ -86,7 +86,7 @@ namespace server.Controllers
         }
 
         [HttpPost("favorite")]
-        public async Task<IActionResult> AddMovieToUser([FromBody] FavoritedMovieDto dto)
+        public async Task<IActionResult> AddMovieToUser([Fromody] FavoritedMovieDto dto)
         {
             try
             {
@@ -99,42 +99,6 @@ namespace server.Controllers
             }
         }
 
-        // GET USER BY ID
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(int id)
-        {
-            try
-            {
-                var user = await _userService.GetUserById(id);
-                if (user == null)
-                {
-                    return NotFound();
-                }
-                return Ok(user);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+     
 
-        // GET USER BY NAME
-        [HttpGet("/{name}")]
-        public async Task<IActionResult> GetUserByName(string name)
-        {
-            try
-            {
-                var user = await _userService.GetUserByName(name);
-                if (user == null)
-                {
-                    return NotFound();
-                }
-                return Ok(user);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-    }
 }
