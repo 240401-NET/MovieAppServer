@@ -26,14 +26,14 @@ namespace server.Controllers
             _userService = userService;
         }
 
-        /* Auth endpoints */
-        [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto loginDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+  /*                    Auth endpoints                    */
+  [HttpPost("login")]
+  public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+  {
+    if (!ModelState.IsValid)
+    {
+      return BadRequest(ModelState);
+    }
 
             var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName.Equals(loginDto.Username));
             if (user == null)
@@ -85,20 +85,19 @@ namespace server.Controllers
             }
         }
 
-        [HttpPost("favorite")]
-        public async Task<IActionResult> AddMovieToUser([Fromody] FavoritedMovieDto dto)
-        {
-            try
-            {
-                await _userService.AddMovieToUser(dto);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+/*                    UserMovie endpoints                    */
+  [HttpPost("favorite")]
+  public async Task<IActionResult> AddMovieToUser([FromBody] FavoritedMovieDto dto)
+  {
+    try {
+      await _userService.AddMovieToUser(dto);
+      return Ok();
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 
-     
 
 }

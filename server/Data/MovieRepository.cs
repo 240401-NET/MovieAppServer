@@ -13,6 +13,6 @@ public class MovieRepository : IMovieRepository
   }
     public async Task<Movie> GetMovieByTitleAsync(string title)
     {
-        return await _context.Movie.FirstOrDefaultAsync(m => m.Title == title);
+        return await _context.Movies.FirstOrDefaultAsync(m => m.Title == title);
     }
 }

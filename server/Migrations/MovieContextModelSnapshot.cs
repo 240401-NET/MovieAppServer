@@ -278,12 +278,12 @@ namespace server.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("MovideId")
+                    b.Property<int>("MovieId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId", "MovideId");
+                    b.HasKey("UserId", "MovieId");
 
-                    b.HasIndex("MovideId");
+                    b.HasIndex("MovieId");
 
                     b.ToTable("UserMovie");
                 });
@@ -352,7 +352,7 @@ namespace server.Migrations
                 {
                     b.HasOne("server.Models.Movie", "Movie")
                         .WithMany("UserMovies")
-                        .HasForeignKey("MovideId")
+                        .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

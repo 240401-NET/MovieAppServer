@@ -49,6 +49,7 @@ builder.Services.AddAuthentication(options =>{
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IUserMovieRepository, UserMovieRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
