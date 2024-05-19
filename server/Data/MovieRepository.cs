@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using server.Models;
+using server.Services;
 
 namespace server.Data;
 
@@ -22,15 +23,10 @@ public class MovieRepository : IMovieRepository
   }
   public async Task<List<Movie>> GetMoviesByGenreAsync(string genre)
   {
-    int genreId = MapGenreToId(genre);
     return await _context.Movies.Where(m => m.Genre == genre).ToListAsync();
   }
 
-  private int MapGenreToId(string genre)
-  {
-    //if we are hardcoding genre id's, map that here. Probably should be in service
-    throw new NotImplementedException();
-  }
+ 
 
 
 }
