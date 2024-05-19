@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using server.Data;
+using server.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using server.Models;
+using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +52,9 @@ builder.Services.AddAuthentication(options =>{
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IUserMovieRepository, UserMovieRepository>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

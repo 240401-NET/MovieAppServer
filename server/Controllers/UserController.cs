@@ -107,4 +107,33 @@ public class UserController : ControllerBase
   }
 
 
-}
+  /*GET USER'S FAVORITE MOVIES*/
+  [HttpGet("{id}/favorites")]
+  public async Task<IActionResult> GetUserMoviesAsync(string id)
+  {
+      try
+      {
+          var userMovies = await _userService.GetUserMoviesAsync(id);
+          return Ok(userMovies);
+      }
+      catch(Exception e)
+      {
+          return BadRequest(e.Message);
+      }
+  }
+
+
+  [HttpPost("removeFavorite/")]
+  public async Task<IActionResult> RemoveFavoriteMovie([FromBody] FavoritedMovieDto dto)
+  {
+    try {
+      await _userService.RemoveMovieFromUser(dto);
+      return Ok();
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+  }

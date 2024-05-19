@@ -6,5 +6,5 @@ public interface IUserService
 {
   Task AddMovieToUser(FavoritedMovieDto dto);
   Task RemoveMovieFromUser(FavoritedMovieDto dto);
-  Task<List<Movie>> GetUserMoviesAsync(string userId);
+  Task<List<Movie>> GetUserMoviesAsync(string id);
 }
