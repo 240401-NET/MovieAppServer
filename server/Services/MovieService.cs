@@ -42,6 +42,4 @@ public class MovieService
       throw new ArgumentException($"Genre '{genre}' not found");
     }
   }
-
-
 }

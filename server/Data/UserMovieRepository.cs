@@ -23,7 +23,6 @@ public class UserMovieRepository : IUserMovieRepository
     {
       throw new Exception("Movie not favorited");
     }
-
   }
 
   public async Task<List<Movie>> GetUserFavorited(string userId)

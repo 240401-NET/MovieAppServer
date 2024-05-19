@@ -25,8 +25,4 @@ public class MovieRepository : IMovieRepository
   {
     return await _context.Movies.Where(m => m.Genre == genre).ToListAsync();
   }
-
- 
-
-
 }
