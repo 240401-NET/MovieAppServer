@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using server.Models;
+using server.Dto;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace server.Data;
 
@@ -12,34 +15,34 @@ public class UserMovieRepository : IUserMovieRepository
     _context = context;
   }
 
-  public async Task AddUserMovieAsync(UserMovie userMovie)
-  {
-    var movie = await _context.Movies.FindAsync(userMovie.MovieId);
-    if (movie != null)
-    {
-      _context.UserMovies.Add(userMovie);
-      await _context.SaveChangesAsync();
-    } else 
-    {
-      throw new Exception("Movie not favorited");
-    }
-  }
+ //ADD NEW FAVORITE MOVIE
 
-  public async Task<List<Movie>> GetUserFavorited(string userId)
-  {
-    return await _context.UserMovies.Where(um => um.UserId == userId)
-    .Select(um => um.Movie)
-    .ToListAsync();
-  }
-
-    public async Task RemoveUserMovieAsync(string userId, int movieId)
+    public async Task AddUserMovieAsync(UserMovie userMovie)
     {
-        var userMovie = await _context.UserMovies
-        .FirstOrDefaultAsync(um => um.UserId == userId && um.MovieId == movieId);
-        
-        if (userMovie != null) {
-          _context.UserMovies.Remove(userMovie);
-          await _context.SaveChangesAsync();
-        }
+        _context.UserMovies.Add(userMovie);
+        await _context.SaveChangesAsync();
     }
+
+    //SHOW ALL  FAVORITE MOVIES
+
+    public async Task<List<Movie>> ListFavoriteMovies(string id){
+      var movies = await _context.UserMovies.Where(rec => rec.User.Id == id)                               
+                                          .Select(rec => rec.Movie)
+                                          .ToListAsync();
+      return movies;
+    }
+
+    //REMOVE A MOVIE FROM FAVORITES
+    public async Task RemoveMovieFromUser(FavoritedMovieDto dto){
+
+       // Find the UserMovie entry that corresponds to the user and movie
+            var userMovie = await _context.UserMovies.FirstOrDefaultAsync(rec => rec.User.UserName == dto.Username && rec.Movie.Title == dto.MovieTitle);
+            if (userMovie != null)
+            {
+                // Remove the UserMovie entry
+                _context.UserMovies.Remove(userMovie);
+                await _context.SaveChangesAsync();
+            }
+}
+
 }
