@@ -1,4 +1,7 @@
 using server.Models;
+using server.Dto;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace server.Data;
 
@@ -11,21 +14,34 @@ public class UserMovieRepository : IUserMovieRepository
     _context = context;
   }
 
+      //ADD NEW FAVORITE MOVIE
+
     public async Task AddUserMovieAsync(UserMovie userMovie)
     {
         _context.UserMovies.Add(userMovie);
         await _context.SaveChangesAsync();
     }
 
-    //GET ALL MOVIES FOR A USER
-    public async Task<List<Movie>> GetUserMoviesAsync(int id){
-        var favoriteMovies = await (from userMovie in _context.UserMovies
-                                join movie in _context.Movies
-                                on userMovie.MovieId equals movie.Id
-                                where userMovie.UserId == userId
-                                select movie).ToListAsync();
+    //SHOW ALL  FAVORITE MOVIES
 
-        return favoriteMovies;
+    public async Task<List<Movie>> ListFavoriteMovies(string id){
+      var movies = await _context.UserMovies.Where(rec => rec.User.Id == id)                               
+                                          .Select(rec => rec.Movie)
+                                          .ToListAsync();
+      return movies;
+    }
+
+    //REMOVE A MOVIE FROM FAVORITES
+    public async Task RemoveMovieFromUser(FavoritedMovieDto dto){
+
+       // Find the UserMovie entry that corresponds to the user and movie
+            var userMovie = await _context.UserMovies.FirstOrDefaultAsync(rec => rec.User.UserName == dto.Username && rec.Movie.Title == dto.MovieTitle);
+            if (userMovie != null)
+            {
+                // Remove the UserMovie entry
+                _context.UserMovies.Remove(userMovie);
+                await _context.SaveChangesAsync();
+            }
     }
 
 }

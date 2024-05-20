@@ -108,23 +108,35 @@ namespace server.Controllers
         }
 
 
-        //GET ALL FAVORITE MOVIES
-        [HttpGet("favorites/{userId}")]
-        public async Task<IActionResult> GetAllFavorites(int userId)
+        /*GET USER'S FAVORITE MOVIES*/
+        [HttpGet("{id}/favorites")]
+        public async Task<IActionResult> GetUserMoviesAsync(string id)
         {
             try
             {
-                var favorites = await _userService.GetUserMoviesAsync(userId);
-                return Ok(favorites);
+                var userMovies = await _userService.GetUserMoviesAsync(id);
+                return Ok(userMovies);
             }
-            catch (Exception e)
+            catch(Exception e)
             {
-                return BadRequest(new { message = e.Message });
+                return BadRequest(e.Message);
             }
         }
 
-    }
-        
 
-      
+        [HttpDelete("removeFavorite/")]
+        public async Task<IActionResult> RemoveFavoriteMovie([FromBody] FavoritedMovieDto dto)
+  {
+    try {
+      await _userService.RemoveMovieFromUser(dto);
+      return Ok();
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+  }
+
 }

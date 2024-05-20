@@ -42,20 +42,32 @@ public class UserService : IUserService
     }
 
 
-  //LIST ALL FAVORITE MOVIES FOR USER
-  public async Task<List<Movie>> GetUserMoviesAsync(int userId)
+  //Returns the list of favorite movies of the selected user
+  public async Task<List<Movie>> GetUserMoviesAsync(string id)
   {
-    return await _userMovieRepository.GetMoviesAsync(userId);
+    User selectedUser = await _userRepository.GetUserByIdAsync(id);
+    if(selectedUser == null){
+      throw new Exception("User not found");
+    }
+    else{
+       List<Movie> userFavorites =  await _userMovieRepository.ListFavoriteMovies(id);
+       return userFavorites;
+    }
+
   }
 
-  //REMOVE A MOVIE FROM USER LIST
+  //Remove selected movie from the User
 
   public async Task RemoveMovieFromUser(FavoritedMovieDto dto)
   {
-    throw new NotImplementedException();
+    User selectedUser = await _userRepository.GetUserByUsernameAsync(dto.Username);
+    //Movie selectedMovie = await _movieRepository.GetMovieByTitle(dto.MovieTitle);  REMOVE COMMENT AFTER IMPLEMENTING GETBYTITLE
+
+      if(selectedUser == null){
+        throw new Exception("Wrong data. Double check username/movie title");
+      }
+      else{
+       await _userMovieRepository.RemoveMovieFromUser(dto);
+      }
   }
-
-
-
-
 }
