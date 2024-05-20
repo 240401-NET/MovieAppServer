@@ -126,16 +126,16 @@ namespace server.Controllers
 
         [HttpDelete("removeFavorite/")]
         public async Task<IActionResult> RemoveFavoriteMovie([FromBody] FavoritedMovieDto dto)
-  {
-    try {
-      await _userService.RemoveMovieFromUser(dto);
-      return Ok();
-    }
-    catch (Exception e)
-    {
-      return BadRequest(e.Message);
-    }
-  }
+        {
+          try {
+            await _userService.RemoveMovieFromUser(dto);
+            return Ok();
+          }
+          catch (Exception e)
+          {
+            return BadRequest(e.Message);
+          }
+        }
 
   }
 

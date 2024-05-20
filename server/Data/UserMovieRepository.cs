@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using server.Models;
 using server.Dto;
 
@@ -14,7 +15,7 @@ public class UserMovieRepository : IUserMovieRepository
     _context = context;
   }
 
-      //ADD NEW FAVORITE MOVIE
+ //ADD NEW FAVORITE MOVIE
 
     public async Task AddUserMovieAsync(UserMovie userMovie)
     {
@@ -42,6 +43,6 @@ public class UserMovieRepository : IUserMovieRepository
                 _context.UserMovies.Remove(userMovie);
                 await _context.SaveChangesAsync();
             }
-    }
+}
 
 }
