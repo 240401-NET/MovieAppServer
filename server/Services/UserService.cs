@@ -17,7 +17,7 @@ public class UserService : IUserService
     _userMovieRepository = userMovieRepository;
   }
 
-  public async Task AddMovieToUser(FavoritedMovieDto dto)
+  public async Task AddMovieToUser(FavoritedMovieDto dto) 
   {
     //get user from username & movie from title -> map to usermovie
     //repository methods for get username
@@ -41,13 +41,21 @@ public class UserService : IUserService
     await _userMovieRepository.AddUserMovieAsync(userMovie);
     }
 
-  public Task<List<Movie>> GetUserMoviesAsync(string userId)
+
+  //LIST ALL FAVORITE MOVIES FOR USER
+  public async Task<List<Movie>> GetUserMoviesAsync(int userId)
+  {
+    return await _userMovieRepository.GetMoviesAsync(userId);
+  }
+
+  //REMOVE A MOVIE FROM USER LIST
+
+  public async Task RemoveMovieFromUser(FavoritedMovieDto dto)
   {
     throw new NotImplementedException();
   }
 
-  public Task RemoveMovieFromUser(FavoritedMovieDto dto)
-  {
-    throw new NotImplementedException();
-  }
+
+
+
 }

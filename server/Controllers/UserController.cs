@@ -26,16 +26,16 @@ namespace server.Controllers
             _userService = userService;
         }
 
-  /*                    Auth endpoints                    */
-  [HttpPost("login")]
-  public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
-  {
-    if (!ModelState.IsValid)
-    {
-      return BadRequest(ModelState);
-    }
+        // Auth endpoints
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName.Equals(loginDto.Username));
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == loginDto.Username);
             if (user == null)
             {
                 return Unauthorized("Invalid username, please try again");
@@ -47,11 +47,13 @@ namespace server.Controllers
                 return Unauthorized("Incorrect credentials provided, please try again");
             }
 
+            var token = _tokenService.CreateToken(user);
+
             return Ok(new UserDto
             {
                 Username = user.UserName,
                 Email = user.Email,
-                Token = _tokenService.CreateToken(user)
+                Token = token
             });
         }
 
@@ -69,35 +71,60 @@ namespace server.Controllers
                 Email = registerDto.Email
             };
 
-            var created = await _userManager.CreateAsync(user, registerDto.Password);
-            if (created.Succeeded)
+            var result = await _userManager.CreateAsync(user, registerDto.Password);
+            if (result.Succeeded)
             {
+                var token = _tokenService.CreateToken(user);
+
                 return Ok(new UserDto
                 {
                     Username = user.UserName,
                     Email = user.Email,
-                    Token = _tokenService.CreateToken(user)
+                    Token = token
                 });
             }
-            else
+
+            return StatusCode(500, result.Errors);
+        }
+
+        // UserMovie endpoints
+        [HttpPost("addFavoriteMovie")]
+        public async Task<IActionResult> AddMovieToUser([FromBody] FavoritedMovieDto dto)
+        {
+            if (!ModelState.IsValid)
             {
-                return StatusCode(500, created.Errors);
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                await _userService.AddMovieToUser(dto);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 
-/*                    UserMovie endpoints                    */
-  [HttpPost("favorite")]
-  public async Task<IActionResult> AddMovieToUser([FromBody] FavoritedMovieDto dto)
-  {
-    try {
-      await _userService.AddMovieToUser(dto);
-      return Ok();
-    }
-    catch (Exception e)
-    {
-      return BadRequest(e.Message);
-    }
-  }
 
+        //GET ALL FAVORITE MOVIES
+        [HttpGet("favorites/{userId}")]
+        public async Task<IActionResult> GetAllFavorites(int userId)
+        {
+            try
+            {
+                var favorites = await _userService.GetUserMoviesAsync(userId);
+                return Ok(favorites);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
+        }
 
+    }
+        
+
+      
 }
