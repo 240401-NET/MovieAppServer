@@ -1,0 +1,365 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        99
+      ],
+      "id": 1292562,
+      "original_language": "en",
+      "original_title": "The Zugzwang Machine | A History of Lantern Control",
+      "overview": "Follows the unlikely ascent of Magic the Gathering\u0027s most peculiar deck: Lantern Control. From a fleeting idea in a forum thread to winning the Pro Tour, Lantern Control challenged players\u0027 understanding of Magic and forever changed how they think about its core game systems.",
+      "popularity": 0.0,
+      "poster_path": null,
+      "release_date": "2024-05-19",
+      "title": "The Zugzwang Machine | A History of Lantern Control",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [],
+      "id": 1292531,
+      "original_language": "en",
+      "original_title": "Burning Sun: Exposing the secret K-pop chat groups",
+      "overview": "A BBCEye investigation into three K-pop stars who were sharing evidence of sexual crimes in secret chat groups.",
+      "popularity": 0.0,
+      "poster_path": null,
+      "release_date": "2024-05-19",
+      "title": "Burning Sun: Exposing the secret K-pop chat groups",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/hJ0KstxyMZc3ZpjsbeHc8L6BIe3.jpg",
+      "genre_ids": [
+        18
+      ],
+      "id": 1292443,
+      "original_language": "en",
+      "original_title": "Untitled Project 1",
+      "overview": "some project released from a hard drive somewhere.",
+      "popularity": 0.0,
+      "poster_path": "/n4A3aQkSZU6xIaCs7bktmPaCE7W.jpg",
+      "release_date": "2024-05-19",
+      "title": "Untitled Project 1",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        99
+      ],
+      "id": 1292420,
+      "original_language": "en",
+      "original_title": "Min d\u00F6d \u00E4r min",
+      "overview": "Stefan Nilsson chose to end his life on May 25, 2023, just months after being diagnosed with ALS. This follow-up documentary by Tom Alandh brings to the surface the issues revolving euthanasia when there seems to be nothing left to do.",
+      "popularity": 0.0,
+      "poster_path": null,
+      "release_date": "2024-05-19",
+      "title": "Min d\u00F6d \u00E4r min",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/4SJRPoqGzZzREtFrx4Sxn0RYnf6.jpg",
+      "genre_ids": [
+        99
+      ],
+      "id": 1292380,
+      "original_language": "en",
+      "original_title": "moi.digital untitled Volume 2",
+      "overview": "The 2nd Volume of moi.digital\u0027s personal documentary, \u0022moi.digital untitled\u0022",
+      "popularity": 0.0,
+      "poster_path": "/kqLXHoeEeIVc7YayCl17zfIY5za.jpg",
+      "release_date": "2024-05-19",
+      "title": "moi.digital untitled Volume 2",
+      "video": false,
+      "vote_average": 10.0,
+      "vote_count": 1
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        9648
+      ],
+      "id": 1292329,
+      "original_language": "en",
+      "original_title": "movie watching",
+      "overview": "watching a very good movie while spanning time alone",
+      "popularity": 0.0,
+      "poster_path": "/8EHE5incaP5KXjubEybtnWLtQSt.jpg",
+      "release_date": "2024-05-19",
+      "title": "movie watching",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        9648,
+        18,
+        35
+      ],
+      "id": 1292069,
+      "original_language": "en",
+      "original_title": "Flying Over The Bird\u0027s Nest",
+      "overview": "A teen living in a forest, alone accompanied by an old basketball in a world, with the majority of the people dead in a world wide deadly virus. He soon discovers that someone else is also living in the forest, but he wants the ball to himself. What is worth to die for?",
+      "popularity": 1.4,
+      "poster_path": "/tvLftTus7lgSRnWvGQlefJSNTfL.jpg",
+      "release_date": "2024-05-19",
+      "title": "Flying Over The Bird\u0027s Nest",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        28
+      ],
+      "id": 1288348,
+      "original_language": "en",
+      "original_title": "The Hitman And The Assassin",
+      "overview": "Two trained killers both have different reasons to kill the same gang leader, but which one will get the job done first?",
+      "popularity": 14.76,
+      "poster_path": null,
+      "release_date": "2024-05-19",
+      "title": "The Hitman And The Assassin",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        28
+      ],
+      "id": 1288340,
+      "original_language": "en",
+      "original_title": "Don\u0027t Fuck With Dolphins",
+      "overview": "Just when you thought it was safe to save the environment, the environment fights back. Take a wild revenge ride with our hyper-buff, hyper-violent aquatic neighbours. They\u0027ve had enough of our shit!",
+      "popularity": 14.76,
+      "poster_path": "/c8I3RLkTQOEoUp00QgehMBvLGsl.jpg",
+      "release_date": "2024-05-19",
+      "title": "Don\u0027t Fuck With Dolphins",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        35,
+        18
+      ],
+      "id": 1286646,
+      "original_language": "en",
+      "original_title": "The Man Upstairs",
+      "overview": "When Lucifer gives them the choice between a plague or tragedy, God and Jesus must figure out their next move",
+      "popularity": 21.108,
+      "poster_path": null,
+      "release_date": "2024-05-19",
+      "title": "The Man Upstairs",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [],
+      "id": 1280782,
+      "original_language": "en",
+      "original_title": "Pride vs. Prejudice: The Delwin Vriend Story",
+      "overview": "Delwin Vriend never wanted to be a human rights activist. However, in challenging his firing for being gay, he set in motion a chain of events that impacted the lives of LGBTQ\u002B people \u2014not just in Alberta, not just in Canada, but around the globe. Pride vs. Prejudice: The Delwin Vriend Story delves into the riveting narrative of the Vriend v. Alberta case, where Delwin Vriend, an unlikely hero, courageously battles against discrimination from a government determined to deny his human rights. Uncover the twists and turns that unfold as Vriend\u0027s pursuit of justice challenges societal biases, culminating in a ground-breaking Canadian Supreme Court ruling in 1998 that confronts prejudice and sets a transformative precedent for LGBTQ\u002B rights that is cited around the world.",
+      "popularity": 23.741,
+      "poster_path": "/vK84FoDuf73d1t0Gf3FwTnAutY4.jpg",
+      "release_date": "2024-05-19",
+      "title": "Pride vs. Prejudice: The Delwin Vriend Story",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        99
+      ],
+      "id": 1278335,
+      "original_language": "en",
+      "original_title": "Lula",
+      "overview": "An intimate and revelatory portrait of one of the world\u2019s most influential political figures, Lula explores the rise, fall and triumphant return of beloved Brazilian leader Luiz In\u00E1cio \u201CLula\u201D da Silva, chronicling his extraordinary journey in 2022 to regain the Brazilian presidency after spending nineteen months in prison.",
+      "popularity": 35.122,
+      "poster_path": "/f8BAIoEXnTFzYELmjVsAqhR1jbg.jpg",
+      "release_date": "2024-05-19",
+      "title": "Lula",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [],
+      "id": 1274751,
+      "original_language": "en",
+      "original_title": "Blue Sun Palace",
+      "overview": "A sudden loss catalyzes an unlikely bond between two migrants in the Chinese community of Queens. Navigating lives far from home and the painstaking labor that supports them, they journey through grief together in hopes of finding family.",
+      "popularity": 29.63,
+      "poster_path": null,
+      "release_date": "2024-05-19",
+      "title": "Blue Sun Palace",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/rvapsb1FZz0LTwKfldjekxc5LU5.jpg",
+      "genre_ids": [
+        35,
+        27
+      ],
+      "id": 1272914,
+      "original_language": "en",
+      "original_title": "The Perfect Man",
+      "overview": "When a mad scientist creates a monster the world accepts it, but not her.",
+      "popularity": 22.452,
+      "poster_path": "/jMG7ysOfcTXt2rH782i8tcCWsSp.jpg",
+      "release_date": "2024-05-19",
+      "title": "The Perfect Man",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/gDkePcszTeHCiYzaWdv59zkCk4H.jpg",
+      "genre_ids": [
+        18,
+        35
+      ],
+      "id": 1226777,
+      "original_language": "en",
+      "original_title": "Eephus",
+      "overview": "As an imminent construction project looms over their beloved small-town baseball field, a pair of New England rec-league teams face off for the last time. Tensions flare up and ceremonial laughs are shared as an era of camaraderie and escapism fades into an uncertain future.",
+      "popularity": 28.235,
+      "poster_path": "/akpIKxv6rPwoFRbLXyq0emjvelu.jpg",
+      "release_date": "2024-05-19",
+      "title": "Eephus",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/7qJQsxJActN9Ea6BH7FGJbKYh9A.jpg",
+      "genre_ids": [
+        27
+      ],
+      "id": 933260,
+      "original_language": "en",
+      "original_title": "The Substance",
+      "overview": "Have you ever dreamed of a better version of yourself? You should try this new product: The Substance. It changed my life. With The Substance, you can generate another version of yourself: younger, more beautiful, more perfect\u2026 Just share the time. One week for one, one week for the other. A perfect balance of seven days. Easy, isn\u2019t it? If you follow the instructions, what could go wrong?",
+      "popularity": 45.039,
+      "poster_path": "/zQc1PITqFxZDbEmHlQgO5Mxc4Od.jpg",
+      "release_date": "2024-05-19",
+      "title": "The Substance",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [],
+      "id": 1292467,
+      "original_language": "en",
+      "original_title": "North Western Relief Road",
+      "overview": "A short film about the final days of the Darwin Oak",
+      "popularity": 0.0,
+      "poster_path": "/sAwDGcUgdpghD70IkaOCJghubVB.jpg",
+      "release_date": "2024-05-18",
+      "title": "North Western Relief Road",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/z4K3nMKWfg5tdxwwHMHCKe7eJte.jpg",
+      "genre_ids": [
+        18,
+        10749
+      ],
+      "id": 1292363,
+      "original_language": "en",
+      "original_title": "Seventeen",
+      "overview": "A teenager confronts their self worth after a failed relationship.",
+      "popularity": 0.0,
+      "poster_path": "/89XdwFOwhfPNA2dPBcCa5cNCGl8.jpg",
+      "release_date": "2024-05-18",
+      "title": "Seventeen",
+      "video": false,
+      "vote_average": 10.0,
+      "vote_count": 1
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        18
+      ],
+      "id": 1292306,
+      "original_language": "en",
+      "original_title": "Liquid Dreams",
+      "overview": "Daydreams in the dishpit.",
+      "popularity": 0.0,
+      "poster_path": "/7KiHK3me5Ux35PhPI65rG3ZfTWP.jpg",
+      "release_date": "2024-05-18",
+      "title": "Liquid Dreams",
+      "video": false,
+      "vote_average": 10.0,
+      "vote_count": 1
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [
+        99
+      ],
+      "id": 1292253,
+      "original_language": "en",
+      "original_title": "Run,run,run,run,run",
+      "overview": "I was running, running, and then some",
+      "popularity": 1.4,
+      "poster_path": null,
+      "release_date": "2024-05-18",
+      "title": "Run,run,run,run,run",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0
+    }
+  ],
+  "total_pages": 16,
+  "total_results": 301
+}
