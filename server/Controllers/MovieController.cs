@@ -13,6 +13,8 @@ public class MovieController : ControllerBase
     private readonly IUserService _userService;
     private readonly IMovieRepository _movieRepository;
 
+    private readonly TMDBService _apiService;
+
 
     public MovieController(IMovieService movieService, IUserService userService, IMovieRepository movieRepository)
     {
@@ -66,21 +68,43 @@ public class MovieController : ControllerBase
     }
 
     [HttpGet("movie/upcoming")]
-    public async Task<IActionResult> GetUpcomingMovies()
+    public async Task<IActionResult> GetUpcomingMovies(int currentPage)
     {
+        try{
+            var movies = await _apiService.GetUpcomingMovies(currentPage);
+            return Ok(movies);
+        }
+        catch(Exception e)
+        {
+            return BadRequest(e.Message);
+        }
 
     }
 
     [HttpGet("movie/playing")]
-    public async Task<IActionResult> GetNowPlayingMovies()
+    public async Task<IActionResult> GetNowPlayingMovies(int currentPage)
     {
-
+        try{
+            var movies = await _apiService.GetNowPlayingMovies(currentPage);
+            return Ok(movies);
+        }
+        catch(Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
-    [HttpGet("movie/info")]
-    public async Task<IActionResult> GetMovieInfo()
+    [HttpGet("movie/info/{movieId}")]
+    public async Task<IActionResult> GetMovieInfo([FromBody] int movieId)
     {
-
+        try{
+            var movies = await _apiService.GetMovieInfo(movieId);
+            return Ok(movies);
+        }
+        catch(Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
 }
