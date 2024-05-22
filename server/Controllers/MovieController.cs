@@ -65,17 +65,17 @@ public class MovieController : ControllerBase
 
     }
 
-    [HttpGet("movie/upcoming")]
-    public async Task<IActionResult> GetUpcomingMovies()
-    {
+    // [HttpGet("movie/upcoming")]
+    // public async Task<IActionResult> GetUpcomingMovies()
+    // {
 
-    }
+    // }
 
-    [HttpGet("movie/playing")]
-    public async Task<IActionResult> GetNowPlayingMovies()
-    {
+    // [HttpGet("movie/playing")]
+    // public async Task<IActionResult> GetNowPlayingMovies()
+    // {
         
-    }
+    // }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetMovieInfo(int id)

@@ -180,6 +180,10 @@ namespace server.Migrations
                     b.Property<bool?>("NowPlaying")
                         .HasColumnType("bit");
 
+                    b.Property<string>("PosterPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool?>("PurchasedTickets")
                         .HasColumnType("bit");
 
@@ -280,6 +284,14 @@ namespace server.Migrations
 
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PosterPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "MovieId");
 

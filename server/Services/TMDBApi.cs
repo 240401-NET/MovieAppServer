@@ -133,7 +133,11 @@ namespace server.Services
         Genre = genre,
         MovieLanguage = results.OriginalLanguage,
         Rating = certification,
-        MovieDescription = results.Overview
+        MovieDescription = results.Overview,
+        PosterPath = results.PosterPath,
+        NowPlaying = DateTime.Parse(results.ReleaseDate) >= today,
+        IsFavorited = false,
+        PurchasedTickets = false
       };
       //will still need to assign isFavorited, purchasedTickets, and nowPlaying
     }
