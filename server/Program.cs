@@ -61,7 +61,7 @@ builder.Services.AddScoped<IUserMovieRepository, UserMovieRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITMDBApi, TMDBService>();
-
+builder.Services.AddHttpClient<ITMDBApi, TMDBService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -88,6 +88,7 @@ if (app.Environment.IsDevelopment())
 
 // await service.GetUpcomingMovies(3);
 // await service.GetGenres();
+// await service.GetMovieInfo(1291899);
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");

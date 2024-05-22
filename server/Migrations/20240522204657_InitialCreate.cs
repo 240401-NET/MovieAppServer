@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace server.Migrations
 {
     /// <inheritdoc />
-    public partial class CreatedUserMovieJoinTable : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,7 +26,7 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Movie",
+                name: "Movies",
                 columns: table => new
                 {
                     MovieId = table.Column<int>(type: "int", nullable: false)
@@ -39,11 +39,12 @@ namespace server.Migrations
                     MovieLanguage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rating = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NowPlaying = table.Column<bool>(type: "bit", nullable: true),
+                    PosterPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MovieDescription = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Movie", x => x.MovieId);
+                    table.PrimaryKey("PK_Movies", x => x.MovieId);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,9 +94,9 @@ namespace server.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Movie_MovieId",
+                        name: "FK_AspNetUsers_Movies_MovieId",
                         column: x => x.MovieId,
-                        principalTable: "Movie",
+                        principalTable: "Movies",
                         principalColumn: "MovieId");
                 });
 
@@ -185,25 +186,27 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserMovie",
+                name: "UserMovies",
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MovieId = table.Column<int>(type: "int", nullable: false)
+                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PosterPath = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserMovie", x => new { x.UserId, x.MovieId });
+                    table.PrimaryKey("PK_UserMovies", x => new { x.UserId, x.MovieId });
                     table.ForeignKey(
-                        name: "FK_UserMovie_AspNetUsers_UserId",
+                        name: "FK_UserMovies_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserMovie_Movie_MovideId",
+                        name: "FK_UserMovies_Movies_MovieId",
                         column: x => x.MovieId,
-                        principalTable: "Movie",
+                        principalTable: "Movies",
                         principalColumn: "MovieId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -253,8 +256,8 @@ namespace server.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserMovie_MovideId",
-                table: "UserMovie",
+                name: "IX_UserMovies_MovieId",
+                table: "UserMovies",
                 column: "MovieId");
         }
 
@@ -277,7 +280,7 @@ namespace server.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "UserMovie");
+                name: "UserMovies");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -286,7 +289,7 @@ namespace server.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Movie");
+                name: "Movies");
         }
     }
 }
