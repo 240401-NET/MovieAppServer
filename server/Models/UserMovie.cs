@@ -9,4 +9,6 @@ public class UserMovie
 
   public int MovieId {get;set;}
   public Movie Movie {get;set;}
+  public string Description {get;set;}
+  public string PosterPath {get;set;}
 }
