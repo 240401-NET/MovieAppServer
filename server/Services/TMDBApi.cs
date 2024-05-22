@@ -7,24 +7,28 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using server.Models;
 using server.Dto;
+using server.Data;
 
 namespace server.Services
 {
   public class TMDBService : ITMDBApi
   {
+    private readonly ITMDBApiRepository _itmdbApiRepository;
     private readonly HttpClient _http;
     private readonly string _apiKey;
     private readonly string _token;
     public static DateTime today = DateTime.Today;
 
-    public TMDBService(HttpClient http, IConfiguration config)
+
+    public TMDBService(HttpClient http, IConfiguration config, ITMDBApiRepository itmdbApiRepository)
     {
       _http = http;
       _apiKey = config["ApiKey"];
       _token = config["Token"];
+      _itmdbApiRepository = itmdbApiRepository;
     }
 
-    public async Task<List<TMDBMovieDto>> GetUpcomingMovies(int currentPage)
+    public async Task<List<Movie>> GetUpcomingMovies(int currentPage)
     {
       string minDateRange = today.AddDays(-7).ToString("yyyy-MM-dd");
       string maxDateRange = today.AddDays(30).ToString("yyyy-MM-dd");
@@ -42,7 +46,7 @@ namespace server.Services
           Console.WriteLine("Content: " + content);
           var response = JsonSerializer.Deserialize<TMDBResponseDto>(content);
 
-          var movies = new List<TMDBMovieDto>();
+          var movies = new List<Movie>();
           foreach (var movieItem in response.Results)
           {
             var certification = await GetCertification(movieItem.Id);
@@ -72,7 +76,7 @@ namespace server.Services
       return null;
     }
 
-    public async Task<List<TMDBMovieDto>> GetNowPlayingMovies(int currentPage)
+    public async Task<List<Movie>> GetNowPlayingMovies(int currentPage)
     {
      
       try
@@ -88,7 +92,7 @@ namespace server.Services
           Console.WriteLine("Content: " + content);
           var response = JsonSerializer.Deserialize<TMDBResponseDto>(content);
 
-          var movies = new List<TMDBMovieDto>();
+          var movies = new List<Movie>();
           foreach (var movieItem in response.Results)
           {
             var certification = await GetCertification(movieItem.Id);
@@ -96,6 +100,7 @@ namespace server.Services
             if (movie != null)
             {
               Console.WriteLine("Movie: " + movie.Title);
+              await _itmdbApiRepository.AddMovieToDb(movie);
               movies.Add(movie);
             }
             else
@@ -118,7 +123,7 @@ namespace server.Services
       return null;
     }
 
-    private async Task<string> GetCertification(int id)
+    public async Task<string> GetCertification(int id)
     {
       try
       {
@@ -162,7 +167,7 @@ namespace server.Services
       return null;
     }
 
-    public  TMDBMovieDto MapToMovie(TMDBMovieDto results, string certification)
+    public Movie MapToMovie(TMDBMovieDto results, string certification)
     {
       string genre = "unknown";
 
@@ -171,7 +176,24 @@ namespace server.Services
         genre = results.GenreIds[0].ToString();
       }
 
-      return results;
+      var movie = new Movie
+      {
+        MovieId = results.Id,
+        Title = results.Title,
+        ReleaseDate = DateTime.Parse(results.ReleaseDate),
+        Genre = genre,
+        MovieLanguage = results.OriginalLanguage,
+        Rating = certification,
+        MovieDescription = results.Overview,
+        PosterPath = results.PosterPath,
+        NowPlaying = DateTime.Parse(results.ReleaseDate) >= today,
+        IsFavorited = false,
+        PurchasedTickets = false
+      };
+
+      // await _itmdbApiRepository.AddMovieToDb(movie);
+
+      return movie;
       // {
       //   MovieId = results.Id,
       //   Title = results.Title,

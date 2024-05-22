@@ -62,6 +62,7 @@ builder.Services.AddScoped<IUserMovieRepository, UserMovieRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITMDBApi, TMDBService>();
+builder.Services.AddScoped<ITMDBApiRepository, TMDBApiRepository>();
 
 
 builder.Services.AddControllers();

@@ -5,10 +5,10 @@ namespace server.Services;
 
 public interface ITMDBApi
 {
-    public Task<List<TMDBMovieDto>> GetUpcomingMovies(int currentPage);
-    public Task<List<TMDBMovieDto>> GetNowPlayingMovies(int currentPage);
-    // private async Task<string> GetCertification(int id);
-    // private Movie MapToMovie(TMDBMovieDto results, string certification);
-    // public async Task GetGenres();
+    public Task<List<Movie>> GetUpcomingMovies(int currentPage);
+    public Task<List<Movie>> GetNowPlayingMovies(int currentPage);
+    public Task<string> GetCertification(int id);
+    public Movie MapToMovie(TMDBMovieDto results, string certification);
+    public Task GetGenres();
     
 }
