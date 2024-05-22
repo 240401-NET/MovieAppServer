@@ -116,7 +116,7 @@ namespace server.Services
       return null;
     }
 
-    private Movie MapToMovie(TMDBMovieDto results, string certification)
+    public  Movie MapToMovie(TMDBMovieDto results, string certification)
     {
       string genre = "unknown";
 
