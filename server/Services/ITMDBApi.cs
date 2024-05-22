@@ -1,12 +1,11 @@
 using server.Models;
-
+using server.Dto;
 namespace server.Services;
 
 public interface ITMDBApi
 {
-    public async Task<List<Movie>> GetUpcomingMovies(int currentPage);
-    private async Task<string> GetCertification(int id);
-    private Movie MapToMovie(TMDBMovieDto results, string certification);
-    public async Task GetGenres();
+    Task<List<Movie>> GetUpcomingMovies(int currentPage);
+    Task<string> GetCertification(int id);
+    Movie MapToMovie(TMDBMovieDto results, string certification);
     
 }

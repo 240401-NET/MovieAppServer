@@ -74,7 +74,7 @@ public class MovieController : ControllerBase
     [HttpGet("movie/playing")]
     public async Task<IActionResult> GetNowPlayingMovies()
     {
-
+        
     }
 
     [HttpGet("movie/info")]

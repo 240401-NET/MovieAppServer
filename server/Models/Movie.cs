@@ -31,6 +31,7 @@ public class Movie
   public string? Rating { get; set; }
 
   public bool? NowPlaying { get; set; }
+  public string PosterPath {get;set;}
 
   public string? MovieDescription { get; set; }
   public ICollection<UserMovie> UserMovies { get; set; } = new List<UserMovie>();

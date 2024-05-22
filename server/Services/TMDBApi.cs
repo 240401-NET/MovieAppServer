@@ -10,7 +10,7 @@ using server.Dto;
 
 namespace server.Services
 {
-  public class TMDBService
+  public class TMDBService : ITMDBApi
   {
     private readonly HttpClient _http;
     private readonly string _apiKey;
@@ -72,7 +72,7 @@ namespace server.Services
       return null;
     }
 
-    private async Task<string> GetCertification(int id)
+    public async Task<string> GetCertification(int id)
     {
       try
       {
@@ -165,9 +165,11 @@ namespace server.Services
       }
     }
 
-    // public async Task<Movie> GetByTitle(string title)
-    // {
-      
-    // }
-  }
+        
+
+        // public async Task<Movie> GetByTitle(string title)
+        // {
+
+        // }
+    }
 }
