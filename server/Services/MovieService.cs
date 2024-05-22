@@ -1,15 +1,19 @@
 using System.Text.Json;
 using server.Models;
+using server.Services;
 
 namespace server.Services;
 
 public class MovieService
 {
   private List<Genre> _genres;
+  private readonly IMovieRepository _movieRepository;
 
-  public MovieService()
+
+  public MovieService(IMovieRepository movieRepository)
   {
     _genres = LoadGenres();
+    _movieRepository = movieRepository;
   }
 
 //reading from local file -> list
@@ -41,5 +45,20 @@ public class MovieService
     else {
       throw new ArgumentException($"Genre '{genre}' not found");
     }
+  }
+
+  public async Task<Movie> GetMovieByTitle(string title)
+  {
+    return await _movieRepository.GetMovieByTitleAsync(title);
+  }
+
+    public async Task<List<Movie>> GetMovieByLanguage(string language)
+  {
+    return await _movieRepository.GetMovieByLanguageAsync(language);
+  }
+
+    public async Task<List<Movie>> GetMovieByGenre(string genre)
+  {
+    return await _movieRepository.GetMovieByGenreAsync(genre);
   }
 }

@@ -10,9 +10,7 @@ namespace server.Controllers;
 public class MovieController : ControllerBase
 {
     private readonly IMovieService _movieService;
-    private readonly IUserService _userService;
     private readonly IMovieRepository _movieRepository;
-
     private readonly TMDBService _apiService;
 
 
@@ -29,7 +27,7 @@ public class MovieController : ControllerBase
     public async Task<IActionResult> GetMovieByTitle(string title)
     {
         try{
-            var movies = await _movieRepository.GetMovieByTitleAsync(title);
+            var movies = await _movieService.GetMovieByTitle(title);
             return Ok(movies);
         }
         catch(Exception e)
@@ -43,7 +41,7 @@ public class MovieController : ControllerBase
     public async Task<IActionResult> GetMovieByLanguage(string language)
     {
         try{
-            var movies = await _movieRepository.GetMovieByLanguageAsync(language);
+            var movies = await _movieService.GetMovieByLanguage(language);
             return Ok(movies);
         }
         catch(Exception e)
@@ -57,7 +55,7 @@ public class MovieController : ControllerBase
     public async Task<IActionResult> GetMovieByGenre(string genre)
     {
         try{
-            var movies = await _movieRepository.GetMoviesByGenreAsync(genre);
+            var movies = await _movieService.GetMoviesByGenre(genre);
             return Ok(movies);
         }
         catch(Exception e)
