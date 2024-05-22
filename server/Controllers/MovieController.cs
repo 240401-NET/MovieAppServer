@@ -11,20 +11,14 @@ public class MovieController : ControllerBase
 {
     private readonly IMovieService _movieService;
     private readonly IMovieRepository _movieRepository;
-<<<<<<< HEAD
-    private readonly TMDBService _apiService;
-=======
     private readonly ITMDBApi _tmdbService;
->>>>>>> 5a0937003a9c94cbcee0a2f5df3f73dcc24f0dae
 
-    public MovieController(IMovieService movieService, IUserService userService, IMovieRepository movieRepository, ITMDBApi tmdbService)
+    public MovieController(IMovieService movieService, IMovieRepository movieRepository, ITMDBApi tmdbService)
     {
         _movieService = movieService;
-        _userService = userService;
         _movieRepository = movieRepository;
         _tmdbService = tmdbService;
     }
-    //need to be finished by being implemented by the service
 
     [HttpGet("search/{title}")]
     public async Task<IActionResult> GetMovieByTitle(string title)
@@ -73,7 +67,7 @@ public class MovieController : ControllerBase
     public async Task<IActionResult> GetUpcomingMovies(int currentPage)
     {
         try{
-            var movies = await _apiService.GetUpcomingMovies(currentPage);
+            var movies = await _tmdbService.GetUpcomingMovies(currentPage);
             return Ok(movies);
         }
         catch(Exception e)
@@ -82,42 +76,6 @@ public class MovieController : ControllerBase
         }
 
     }
-
-    [HttpGet("movie/playing")]
-    public async Task<IActionResult> GetNowPlayingMovies(int currentPage)
-    {
-        try{
-            var movies = await _apiService.GetNowPlayingMovies(currentPage);
-            return Ok(movies);
-        }
-        catch(Exception e)
-        {
-            return BadRequest(e.Message);
-        }
-    }
-
-    [HttpGet("movie/info/{movieId}")]
-    public async Task<IActionResult> GetMovieInfo([FromBody] int movieId)
-    {
-        try{
-            var movies = await _apiService.GetMovieInfo(movieId);
-            return Ok(movies);
-        }
-        catch(Exception e)
-        {
-            return BadRequest(e.Message);
-=======
-    // [HttpGet("movie/upcoming")]
-    // public async Task<IActionResult> GetUpcomingMovies()
-    // {
-
-    // }
-
-    // [HttpGet("movie/playing")]
-    // public async Task<IActionResult> GetNowPlayingMovies()
-    // {
-        
-    // }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetMovieInfo(int id)
@@ -132,7 +90,6 @@ public class MovieController : ControllerBase
         } catch (Exception ex)
         {
             return BadRequest(ex.Message);
->>>>>>> 5a0937003a9c94cbcee0a2f5df3f73dcc24f0dae
         }
     }
 
