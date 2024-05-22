@@ -35,7 +35,7 @@ public class UserService : IUserService
     var userMovie = new UserMovie
     {
       UserId = user.Id,
-      MovieId = dto.MovieId
+      MovideId = dto.MovieId
     };
 
     await _userMovieRepository.AddUserMovieAsync(userMovie);

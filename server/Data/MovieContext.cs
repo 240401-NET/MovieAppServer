@@ -11,7 +11,7 @@ public class MovieContext : IdentityDbContext<User>
 
   public DbSet<Movie>? Movies { get; set; }
   public DbSet<User>? Users { get; set; }
-  public DbSet<UserMovie>? UserMovies { get; set; }
+  public DbSet<UserMovie>? UserMovie { get; set; }
 
   public MovieContext(DbContextOptions<MovieContext> options, IConfiguration configuration) : base(options)
   {
@@ -23,7 +23,7 @@ public class MovieContext : IdentityDbContext<User>
     base.OnModelCreating(modelBuilder);
 
     modelBuilder.Entity<UserMovie>()
-    .HasKey(um => new { um.UserId, um.MovieId });
+    .HasKey(um => new { um.UserId, um.MovideId });
 
     modelBuilder.Entity<UserMovie>()
     .HasOne(um => um.User)
@@ -33,7 +33,7 @@ public class MovieContext : IdentityDbContext<User>
     modelBuilder.Entity<UserMovie>()
     .HasOne(um => um.Movie)
     .WithMany(m => m.UserMovies)
-    .HasForeignKey(um => um.MovieId);
+    .HasForeignKey(um => um.MovideId);
   }
 
 }

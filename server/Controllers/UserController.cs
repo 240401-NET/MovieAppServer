@@ -53,6 +53,7 @@ namespace server.Controllers
             {
                 Username = user.UserName,
                 Email = user.Email,
+                Id = user.Id,
                 Token = token
             });
         }

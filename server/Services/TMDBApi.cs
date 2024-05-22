@@ -10,7 +10,7 @@ using server.Dto;
 
 namespace server.Services
 {
-  public class TMDBService
+  public class TMDBService : ITMDBApi
   {
     private readonly HttpClient _http;
     private readonly string _apiKey;
@@ -24,7 +24,7 @@ namespace server.Services
       _token = config["Token"];
     }
 
-    public async Task<List<Movie>> GetUpcomingMovies(int currentPage)
+    public async Task<List<TMDBMovieDto>> GetUpcomingMovies(int currentPage)
     {
       string minDateRange = today.AddDays(-7).ToString("yyyy-MM-dd");
       string maxDateRange = today.AddDays(30).ToString("yyyy-MM-dd");
@@ -42,7 +42,53 @@ namespace server.Services
           Console.WriteLine("Content: " + content);
           var response = JsonSerializer.Deserialize<TMDBResponseDto>(content);
 
-          var movies = new List<Movie>();
+          var movies = new List<TMDBMovieDto>();
+          foreach (var movieItem in response.Results)
+          {
+            var certification = await GetCertification(movieItem.Id);
+            var movie = MapToMovie(movieItem, certification);
+            if (movie != null)
+            {
+              Console.WriteLine("Movie: " + movie.Title);
+              movies.Add(movie);
+            }
+            else
+            {
+              Console.WriteLine("Movie mapping resulted in null for movie item ID: " + movieItem.Id);
+            }
+          }
+          return movies;
+        }
+        else
+        {
+          Console.WriteLine($"Error: {result.StatusCode} - {await result.Content.ReadAsStringAsync()}");
+        }
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine("catch block " + e.Message);
+        return null;
+      }
+      return null;
+    }
+
+    public async Task<List<TMDBMovieDto>> GetNowPlayingMovies(int currentPage)
+    {
+     
+      try
+      {
+        var url = $"https://api.themoviedb.org/3/movie/now_playing?language=en-US&page={currentPage}";
+        _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
+        _http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        var result = await _http.GetAsync(url);
+        if (result.IsSuccessStatusCode)
+        {
+          var content = await result.Content.ReadAsStringAsync();
+          Console.WriteLine("Content: " + content);
+          var response = JsonSerializer.Deserialize<TMDBResponseDto>(content);
+
+          var movies = new List<TMDBMovieDto>();
           foreach (var movieItem in response.Results)
           {
             var certification = await GetCertification(movieItem.Id);
@@ -116,7 +162,7 @@ namespace server.Services
       return null;
     }
 
-    public  Movie MapToMovie(TMDBMovieDto results, string certification)
+    public  TMDBMovieDto MapToMovie(TMDBMovieDto results, string certification)
     {
       string genre = "unknown";
 
@@ -125,16 +171,17 @@ namespace server.Services
         genre = results.GenreIds[0].ToString();
       }
 
-      return new Movie
-      {
-        MovieId = results.Id,
-        Title = results.Title,
-        ReleaseDate = DateTime.Parse(results.ReleaseDate),
-        Genre = genre,
-        MovieLanguage = results.OriginalLanguage,
-        Rating = certification,
-        MovieDescription = results.Overview
-      };
+      return results;
+      // {
+      //   MovieId = results.Id,
+      //   Title = results.Title,
+      //   ReleaseDate = DateTime.Parse(results.ReleaseDate),
+      //   Genre = genre,
+      //   MovieLanguage = results.OriginalLanguage,
+      //   Rating = certification,
+      //   MovieDescription = results.Overview
+      // };
+      // do mapping and saving in repository call it AddMovieToDB
       //will still need to assign isFavorited, purchasedTickets, and nowPlaying
     }
 

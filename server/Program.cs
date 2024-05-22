@@ -16,6 +16,7 @@ var connectionString = builder.Configuration["ConnectionString"];
 var accessToken = builder.Configuration["Token"];
 var accessKey = builder.Configuration["ApiKey"];
 
+builder.Services.AddHttpClient();
 builder.Services.AddDbContext<MovieContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -60,7 +61,7 @@ builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IUserMovieRepository, UserMovieRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ITMDBApi, TMDBApi>();
+builder.Services.AddScoped<ITMDBApi, TMDBService>();
 
 
 builder.Services.AddControllers();

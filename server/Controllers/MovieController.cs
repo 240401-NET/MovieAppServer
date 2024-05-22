@@ -9,21 +9,23 @@ namespace server.Controllers;
 
 public class MovieController : ControllerBase
 {
-    private readonly IMovieService _movieService;
+    // private readonly IMovieService _movieService;
     private readonly IUserService _userService;
     private readonly IMovieRepository _movieRepository;
+    private readonly ITMDBApi _tmdbservice;
 
 
-    public MovieController(IMovieService movieService, IUserService userService, IMovieRepository movieRepository)
+    public MovieController(IUserService userService, IMovieRepository movieRepository, ITMDBApi tmdbService)
     {
-        _movieService = movieService;
+        // _movieService = movieService;
         _userService = userService;
         _movieRepository = movieRepository;
+        _tmdbservice = tmdbService;
 
     }
     //need to be finished by being implemented by the service
 
-    [HttpGet("search/movie/{title}")]
+    [HttpGet("search/movie/title={title}")]
     public async Task<IActionResult> GetMovieByTitle(string title)
     {
         try{
@@ -37,7 +39,7 @@ public class MovieController : ControllerBase
 
     }
 
-    [HttpGet("search/movie/{language}")]
+    [HttpGet("search/movie/language={language}")]
     public async Task<IActionResult> GetMovieByLanguage(string language)
     {
         try{
@@ -51,7 +53,7 @@ public class MovieController : ControllerBase
 
     }
 
-    [HttpGet("search/movie/{genre}")]
+    [HttpGet("search/movie/genre={genre}")]
     public async Task<IActionResult> GetMovieByGenre(string genre)
     {
         try{
@@ -66,21 +68,34 @@ public class MovieController : ControllerBase
     }
 
     [HttpGet("movie/upcoming")]
-    public async Task<IActionResult> GetUpcomingMovies()
+    public async Task<IActionResult> GetUpcomingMovies(int currentPage)
     {
-
+        try{
+            var movies = await _tmdbservice.GetUpcomingMovies(currentPage);
+            return Ok(movies);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
-
     [HttpGet("movie/playing")]
-    public async Task<IActionResult> GetNowPlayingMovies()
+    public async Task<IActionResult> GetNowPlayingMovies(int currentPage)
     {
-
+        try{
+            var movies = await _tmdbservice.GetNowPlayingMovies(currentPage);
+            return Ok(movies);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
-    [HttpGet("movie/info")]
-    public async Task<IActionResult> GetMovieInfo()
-    {
+    // [HttpGet("movie/info")]
+    // public async Task<IActionResult> GetMovieInfo()
+    // {
 
-    }
+    // }
 
 }
