@@ -26,16 +26,16 @@ public class UserService : IUserService
     {
       throw new Exception("User not found");
     }
-    var movie = await _movieRepository.GetMovieByTitleAsync(dto.MovieTitle); //might should convert both to lowercase and strip special chars
-    if (movie == null)
-    {
-      throw new Exception("Movie not found");
-    }
+    // var movie = await _movieRepository.GetMovieByTitleAsync(dto.MovieTitle); //might should convert both to lowercase and strip special chars
+    // if (movie == null)
+    // {
+    //   throw new Exception("Movie not found");
+    // }
     //map dto -> usermovie
     var userMovie = new UserMovie
     {
       UserId = user.Id,
-      MovieId = movie.MovieId
+      MovieId = dto.MovieId
     };
 
     await _userMovieRepository.AddUserMovieAsync(userMovie);
