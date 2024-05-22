@@ -7,5 +7,6 @@ public interface ITMDBApi
     Task<List<Movie>> GetUpcomingMovies(int currentPage);
     Task<string> GetCertification(int id);
     Movie MapToMovie(TMDBMovieDto results, string certification);
+    Task<Movie> GetMovieInfo(int id);
     
 }

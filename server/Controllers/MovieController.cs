@@ -5,25 +5,25 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace server.Controllers;
 [ApiController]
-[Route("[Controller]")]
+[Route("[controller]")]
 
 public class MovieController : ControllerBase
 {
     private readonly IMovieService _movieService;
     private readonly IUserService _userService;
     private readonly IMovieRepository _movieRepository;
+    private readonly ITMDBApi _tmdbService;
 
-
-    public MovieController(IMovieService movieService, IUserService userService, IMovieRepository movieRepository)
+    public MovieController(IMovieService movieService, IUserService userService, IMovieRepository movieRepository, ITMDBApi tmdbService)
     {
         _movieService = movieService;
         _userService = userService;
         _movieRepository = movieRepository;
-
+        _tmdbService = tmdbService;
     }
     //need to be finished by being implemented by the service
 
-    [HttpGet("search/movie/{title}")]
+    [HttpGet("search/{title}")]
     public async Task<IActionResult> GetMovieByTitle(string title)
     {
         try{
@@ -37,7 +37,7 @@ public class MovieController : ControllerBase
 
     }
 
-    [HttpGet("search/movie/{language}")]
+    [HttpGet("search/language={language}")]
     public async Task<IActionResult> GetMovieByLanguage(string language)
     {
         try{
@@ -51,7 +51,7 @@ public class MovieController : ControllerBase
 
     }
 
-    [HttpGet("search/movie/{genre}")]
+    [HttpGet("search/genre={genre}")]
     public async Task<IActionResult> GetMovieByGenre(string genre)
     {
         try{
@@ -77,10 +77,20 @@ public class MovieController : ControllerBase
         
     }
 
-    [HttpGet("movie/info")]
-    public async Task<IActionResult> GetMovieInfo()
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetMovieInfo(int id)
     {
-
+        try {
+            var movie = await _tmdbService.GetMovieInfo(id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            return Ok(movie);
+        } catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
 }
