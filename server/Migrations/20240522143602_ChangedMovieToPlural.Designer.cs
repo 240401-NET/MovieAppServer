@@ -12,15 +12,15 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20240516223657_CorrectedUserMovieJoinTable")]
-    partial class CorrectedUserMovieJoinTable
+    [Migration("20240522143602_ChangedMovieToPlural")]
+    partial class ChangedMovieToPlural
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -200,7 +200,7 @@ namespace server.Migrations
 
                     b.HasKey("MovieId");
 
-                    b.ToTable("Movie");
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("server.Models.User", b =>
@@ -288,7 +288,7 @@ namespace server.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("UserMovie");
+                    b.ToTable("UserMovies");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

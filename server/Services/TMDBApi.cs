@@ -10,7 +10,7 @@ using server.Dto;
 
 namespace server.Services
 {
-  public class TMDBService
+  public class TMDBService : ITMDBApi
   {
     private readonly HttpClient _http;
     private readonly string _apiKey;
@@ -28,7 +28,7 @@ namespace server.Services
     {
       string minDateRange = today.AddDays(-7).ToString("yyyy-MM-dd");
       string maxDateRange = today.AddDays(30).ToString("yyyy-MM-dd");
-     
+
       try
       {
         var url = $"https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&with_original_language=en&language=en-US&page={currentPage}&sort_by=release_date.desc&with_release_type=2|3&release_date.gte={minDateRange}&release_date.lte={maxDateRange}";
@@ -72,7 +72,7 @@ namespace server.Services
       return null;
     }
 
-    private async Task<string> GetCertification(int id)
+    public async Task<string> GetCertification(int id)
     {
       try
       {
@@ -116,7 +116,7 @@ namespace server.Services
       return null;
     }
 
-    public  Movie MapToMovie(TMDBMovieDto results, string certification)
+    public Movie MapToMovie(TMDBMovieDto results, string certification)
     {
       string genre = "unknown";
 
@@ -133,7 +133,11 @@ namespace server.Services
         Genre = genre,
         MovieLanguage = results.OriginalLanguage,
         Rating = certification,
-        MovieDescription = results.Overview
+        MovieDescription = results.Overview,
+        PosterPath = results.PosterPath,
+        NowPlaying = DateTime.Parse(results.ReleaseDate) >= today,
+        IsFavorited = false,
+        PurchasedTickets = false
       };
       //will still need to assign isFavorited, purchasedTickets, and nowPlaying
     }
@@ -165,9 +169,39 @@ namespace server.Services
       }
     }
 
-    // public async Task<Movie> GetByTitle(string title)
-    // {
-      
-    // }
+
+
+    public async Task<Movie> GetMovieInfo(int id)
+    {
+      //call cast method as well
+      try
+      {
+        string url = $"https://api.themoviedb.org/3/movie/{id}?api_key={_apiKey}";
+        var result = await _http.GetAsync(url);
+        if (result.IsSuccessStatusCode)
+        {
+          var content = await result.Content.ReadAsStringAsync();
+          var response = JsonSerializer.Deserialize<TMDBMovieDto>(content);
+          Console.WriteLine("response: " + response);
+          var certification = await GetCertification(id);
+          Movie movie = MapToMovie(response, certification);
+          
+          Console.WriteLine("Movie: " + movie.Title);
+          return movie;
+        }
+        else
+        {
+          Console.WriteLine($"Error: {result.StatusCode} - {await result.Content.ReadAsStringAsync()}");
+          return null;
+        }
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine("Error getting movie info: " + e.Message);
+        throw;
+      }
+    }
+
+    
   }
 }
