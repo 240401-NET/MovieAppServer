@@ -9,4 +9,7 @@ public interface ITMDBApi
     Movie MapToMovie(TMDBMovieDto results, string certification);
     Task<Movie> GetMovieInfo(int id);
     
+    Task<List<Movie>> GetMoviesByGenre(string genre, int currentPage);
+    Task<List<Movie>> GetMoviesByLanguage(string language, int currentPage);
+    Task<Movie> GetMovieByTitle(string title);
 }

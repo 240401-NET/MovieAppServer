@@ -9,14 +9,14 @@ namespace server.Controllers;
 
 public class MovieController : ControllerBase
 {
-    private readonly IMovieService _movieService;
+    // private readonly IMovieService _movieService;
     private readonly IUserService _userService;
     private readonly IMovieRepository _movieRepository;
     private readonly ITMDBApi _tmdbService;
 
-    public MovieController(IMovieService movieService, IUserService userService, IMovieRepository movieRepository, ITMDBApi tmdbService)
+    public MovieController( IUserService userService, IMovieRepository movieRepository, ITMDBApi tmdbService)
     {
-        _movieService = movieService;
+        // _movieService = movieService;
         _userService = userService;
         _movieRepository = movieRepository;
         _tmdbService = tmdbService;
@@ -27,7 +27,22 @@ public class MovieController : ControllerBase
     public async Task<IActionResult> GetMovieByTitle(string title)
     {
         try{
-            var movies = await _movieRepository.GetMovieByTitleAsync(title);
+            var movies = await _tmdbService.GetMovieByTitle(title);
+            return Ok(movies);
+        }
+        catch(Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    
+
+    [HttpGet("search/language={language}/{currentPage}")]
+    public async Task<IActionResult> GetMovieByLanguage(string language, int currentPage)
+    {
+        try{
+            var movies = await _tmdbService.GetMoviesByLanguage(language, currentPage);
             return Ok(movies);
         }
         catch(Exception e)
@@ -37,25 +52,16 @@ public class MovieController : ControllerBase
 
     }
 
-    [HttpGet("search/language={language}")]
-    public async Task<IActionResult> GetMovieByLanguage(string language)
+    [HttpGet("search/{genre}/{currentPage}")]
+    public async Task<IActionResult> GetMovieByGenre(string genre, int currentPage)
     {
         try{
-            var movies = await _movieRepository.GetMovieByLanguageAsync(language);
-            return Ok(movies);
-        }
-        catch(Exception e)
-        {
-            return BadRequest(e.Message);
-        }
+            var movies = await _tmdbService.GetMoviesByGenre(genre, currentPage);
+            foreach (var movie in movies)
+            {
+            Console.WriteLine("By genre from controller: " + movie.Title);
 
-    }
-
-    [HttpGet("search/genre={genre}")]
-    public async Task<IActionResult> GetMovieByGenre(string genre)
-    {
-        try{
-            var movies = await _movieRepository.GetMoviesByGenreAsync(genre);
+            }
             return Ok(movies);
         }
         catch(Exception e)
