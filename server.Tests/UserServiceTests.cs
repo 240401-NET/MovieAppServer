@@ -35,13 +35,6 @@ public class UserServiceTests
     {
         // Arrange
 
-        // Setup User
-        User oneUser = new User()
-        {
-            Id = "1",
-            UserName = "TestUser",
-            Email = "Test@email.com"
-        };
         // Set Up List of Movies
         Movie movieOne = new Movie
         {
@@ -53,6 +46,16 @@ public class UserServiceTests
             PosterPath = "n/a"
         };
         List<Movie> movieList = new List<Movie> { movieOne };
+
+        // Setup User
+        User oneUser = new User()
+        {
+            Id = "1",
+            UserName = "TestUser",
+            Email = "Test@email.com",
+            Age = 18,
+            Movie = movieOne
+        };
         // Setp Up Moq
         _moqUserRepo.Setup(r => r.GetUserByUsernameAsync(oneUser.UserName)).ReturnsAsync(oneUser);
         _moqUserMovieRepo.Setup(r => r.ListFavoriteMovies(oneUser.Id)).ReturnsAsync(movieList);
@@ -117,7 +120,7 @@ public class UserServiceTests
         var result = _userService.AddMovieToUser(favMovieDto);
 
         // Assert
-        
+
         Assert.NotNull(result);
     }
 
@@ -152,5 +155,123 @@ public class UserServiceTests
 
         // Assert
         Assert.NotNull(result);
+    }
+
+    [Fact]
+    public async void UserService_GetUserMoviesAsync_ThrowsErrorWhenUserIsNull()
+    {
+        // Arrange
+
+        // Set Up List of Movies
+        Movie movieOne = new Movie
+        {
+            MovieId = 1,
+            Title = "The Shawshank Redemption",
+            ReleaseDate = DateTime.Now,
+            PurchasedTickets = false,
+            MovieLanguage = "testLanguage",
+            PosterPath = "n/a"
+        };
+        List<Movie> movieList = new List<Movie> { movieOne };
+
+        // Setup User
+        User oneUser = new User()
+        {
+            Id = "1",
+            UserName = "TestUser",
+            Email = "Test@email.com",
+            Age = 18,
+            Movie = movieOne
+        };
+        // Setp Up Moq
+        _moqUserRepo.Setup(r => r.GetUserByUsernameAsync(oneUser.UserName)).ReturnsAsync((User)null);
+        _moqUserMovieRepo.Setup(r => r.ListFavoriteMovies(oneUser.Id)).ReturnsAsync(movieList);
+
+        // Act
+        await Assert.ThrowsAnyAsync<Exception>(() => _userService.GetUserMoviesAsync(oneUser.UserName));
+    }
+
+    [Fact]
+    public async void UserService_RemoveMovieFromUser_ThrowsAnException()
+    {
+        // Arrange
+
+        // Create DTO
+        FavoritedMovieDto movieDtoDelete = new FavoritedMovieDto()
+        {
+            Username = "TestUser",
+            MovieTitle = "The Shawshank Redemption",
+            MovieId = 1,
+            PosterPath = "n/a",
+            Description = "The blue seas of Zihuatanejo"
+        };
+        // Setup User
+        User oneUser = new User()
+        {
+            Id = "1",
+            UserName = "TestUser",
+            Email = "Test@email.com"
+        };
+
+        // Setup the Repo Moqs
+        _moqUserRepo.Setup(r => r.GetUserByUsernameAsync(movieDtoDelete.Username)).ReturnsAsync((User)null);
+        _moqUserMovieRepo.Setup(r => r.RemoveMovieFromUser(movieDtoDelete));
+
+        // Act and Assert
+        await Assert.ThrowsAnyAsync<Exception>(() => _userService.RemoveMovieFromUser(movieDtoDelete));
+        ;
+
+    }
+
+     [Fact]
+    public async void UserSerVice_AddMovieToUser_ThrowsExceptionToNullUser()
+    {
+        // Arrange
+
+        // Set up favMovie DTO
+        FavoritedMovieDto favMovieDto = new FavoritedMovieDto()
+        {
+            Username = "TestUser",
+            MovieTitle = "The Shawshank Redemption",
+            MovieId = 1,
+            PosterPath = "n/a",
+            Description = "The blue seas of Zihuatanejo"
+        };
+        // Setup User
+        User oneUser = new User()
+        {
+            Id = "1",
+            UserName = "TestUser",
+            Email = "Test@email.com"
+        };
+        Movie movieOne = new Movie
+        {
+            MovieId = 1,
+            Title = "The Shawshank Redemption",
+            ReleaseDate = DateTime.Now,
+            PurchasedTickets = false,
+            MovieLanguage = "testLanguage",
+            PosterPath = "n/a"
+        };
+        // Set up User Movie
+        UserMovie userMovie = new UserMovie()
+        {
+            UserId = oneUser.Id,
+            User = oneUser,
+            MovieId = favMovieDto.MovieId,
+            Movie = movieOne,
+            Description = favMovieDto.Description,
+            PosterPath = favMovieDto.PosterPath
+        };
+        // Set up Repo Moqs
+        _moqUserRepo.Setup(r => r.GetUserByUsernameAsync(oneUser.Id)).ReturnsAsync((User)null);
+        _moqMovieRepo.Setup(r => r.GetMovieByIdAsync(favMovieDto.MovieId)).ReturnsAsync(movieOne);
+        _moqUserMovieRepo.Setup(r => r.AddUserMovieAsync(userMovie));
+        var httpClient = new HttpClient();
+        var mockConfig = new Mock<IConfiguration>();
+        UserService userService = new UserService(_moqUserRepo.Object, _moqMovieRepo.Object, _moqUserMovieRepo.Object, new TMDBService(httpClient, mockConfig.Object));
+
+        // Act and Assert
+        await Assert.ThrowsAnyAsync<Exception>(() => userService.AddMovieToUser(favMovieDto));
     }
 }
