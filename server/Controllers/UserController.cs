@@ -109,12 +109,12 @@ namespace server.Controllers
 
 
         /*GET USER'S FAVORITE MOVIES*/
-        [HttpGet("{id}/favorites")]
-        public async Task<IActionResult> GetUserMoviesAsync(string id)
+        [HttpGet("{username}/favorites")]
+        public async Task<IActionResult> GetUserMoviesAsync(string username)
         {
             try
             {
-                var userMovies = await _userService.GetUserMoviesAsync(id);
+                var userMovies = await _userService.GetUserMoviesAsync(username);
                 return Ok(userMovies);
             }
             catch(Exception e)
