@@ -120,4 +120,37 @@ public class UserServiceTests
         
         Assert.NotNull(result);
     }
+
+    [Fact]
+    public void UserService_RemoveMovieFromUser_ReturnsTask()
+    {
+        // Arrange
+
+        // Create DTO
+        FavoritedMovieDto movieDtoDelete = new FavoritedMovieDto()
+        {
+            Username = "TestUser",
+            MovieTitle = "The Shawshank Redemption",
+            MovieId = 1,
+            PosterPath = "n/a",
+            Description = "The blue seas of Zihuatanejo"
+        };
+        // Setup User
+        User oneUser = new User()
+        {
+            Id = "1",
+            UserName = "TestUser",
+            Email = "Test@email.com"
+        };
+
+        // Setup the Repo Moqs
+        _moqUserRepo.Setup(r => r.GetUserByUsernameAsync(movieDtoDelete.Username)).ReturnsAsync(oneUser);
+        _moqUserMovieRepo.Setup(r => r.RemoveMovieFromUser(movieDtoDelete));
+
+        // Act
+        var result = _userService.RemoveMovieFromUser(movieDtoDelete);
+
+        // Assert
+        Assert.NotNull(result);
+    }
 }
