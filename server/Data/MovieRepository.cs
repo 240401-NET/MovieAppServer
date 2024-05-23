@@ -25,4 +25,14 @@ public class MovieRepository : IMovieRepository
   {
     return await _context.Movies.Where(m => m.Genre == genre).ToListAsync();
   }
+
+  public async Task<Movie> GetMovieByIdAsync(int movieId)
+  {
+    return await _context.Movies.FindAsync(movieId);
+  }
+  public async Task AddMovieAsync(Movie movie)
+  {
+    _context.Movies.Add(movie);
+    await _context.SaveChangesAsync();
+  }
 }
