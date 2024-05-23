@@ -54,11 +54,11 @@ public class UserServiceTests
         };
         List<Movie> movieList = new List<Movie> { movieOne };
         // Setp Up Moq
-        _moqUserRepo.Setup(r => r.GetUserByIdAsync(oneUser.Id)).ReturnsAsync(oneUser);
+        _moqUserRepo.Setup(r => r.GetUserByUsernameAsync(oneUser.UserName)).ReturnsAsync(oneUser);
         _moqUserMovieRepo.Setup(r => r.ListFavoriteMovies(oneUser.Id)).ReturnsAsync(movieList);
 
         // Act
-        Task<List<Movie>> result = _userService.GetUserMoviesAsync(oneUser.Id);
+        Task<List<Movie>> result = _userService.GetUserMoviesAsync(oneUser.UserName);
         List<Movie> resultMovieList = await result;
 
         // Assert
@@ -107,13 +107,17 @@ public class UserServiceTests
             PosterPath = favMovieDto.PosterPath
         };
         // Set up Repo Moqs
-        _moqUserRepo.Setup(r => r.GetUserByIdAsync(oneUser.Id)).ReturnsAsync(oneUser);
+        _moqUserRepo.Setup(r => r.GetUserByUsernameAsync(oneUser.Id)).ReturnsAsync(oneUser);
+        _moqMovieRepo.Setup(r => r.GetMovieByIdAsync(favMovieDto.MovieId)).ReturnsAsync(movieOne);
         _moqUserMovieRepo.Setup(r => r.AddUserMovieAsync(userMovie));
         Task moqTask = SomeAsyncMethod();
+
         // Act
+
         var result = _userService.AddMovieToUser(favMovieDto);
 
         // Assert
+        
         Assert.NotNull(result);
     }
 }
