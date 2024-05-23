@@ -158,10 +158,7 @@ namespace server.Migrations
             modelBuilder.Entity("server.Models.Movie", b =>
                 {
                     b.Property<int>("MovieId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MovieId"));
 
                     b.Property<string>("Genre")
                         .IsRequired()

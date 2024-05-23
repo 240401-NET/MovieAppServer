@@ -9,7 +9,6 @@ namespace server.Models;
 public class Movie
 {
   [Key]
-  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
   public int MovieId { get; set; }
   [Required(ErrorMessage = "Title is required")]
   public string? Title { get; set; }
