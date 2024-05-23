@@ -51,9 +51,9 @@ public class UserService : IUserService
 
 
   //Returns the list of favorite movies of the selected user
-  public async Task<List<Movie>> GetUserMoviesAsync(string usrename)
+  public async Task<List<Movie>> GetUserMoviesAsync(string username)
   {
-    User selectedUser = await _userRepository.GetUserByUsernameAsync(usrename);
+    User selectedUser = await _userRepository.GetUserByUsernameAsync(username);
     string id = selectedUser.Id;
     if (selectedUser == null)
     {
