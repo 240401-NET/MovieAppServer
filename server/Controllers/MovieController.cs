@@ -71,11 +71,17 @@ public class MovieController : ControllerBase
 
     }
 
-    // [HttpGet("movie/upcoming")]
-    // public async Task<IActionResult> GetUpcomingMovies()
-    // {
-
-    // }
+    [HttpGet("upcoming/{currentPage}")]
+    public async Task<IActionResult> GetUpcomingMovies(int currentPage)
+    {
+        try {
+            var movies = await _tmdbService.GetUpcomingMovies(currentPage);
+            return Ok(movies);
+        } catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
     // [HttpGet("movie/playing")]
     // public async Task<IActionResult> GetNowPlayingMovies()
