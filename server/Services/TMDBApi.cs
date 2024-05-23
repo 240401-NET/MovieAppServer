@@ -209,6 +209,10 @@ public class GenreResponse
         foreach (var movieItem in response.Results)
         {
           var certification = await GetCertification(movieItem.Id);
+          if (certification == null)
+          {
+            certification = "NR";
+          }
           var movie = MapToMovie(movieItem, certification);
           if (movie != null)
           {
@@ -318,7 +322,10 @@ public class GenreResponse
   public Movie MapToMovie(TMDBMovieDto results, string certification)
   {
     string genre = "unknown";
-
+    if (certification == null)
+    {
+      certification = "NR";
+    }
     if (results.GenreIds != null && results.GenreIds.Count > 0)
     {
       genre = results.GenreIds[0].ToString();
@@ -331,7 +338,7 @@ public class GenreResponse
       ReleaseDate = DateTime.Parse(results.ReleaseDate),
       Genre = genre,
       MovieLanguage = results.OriginalLanguage,
-      Rating = certification,
+      Rating = certification ,
       MovieDescription = results.Overview,
       PosterPath = results.PosterPath,
       NowPlaying = DateTime.Parse(results.ReleaseDate) >= today,
